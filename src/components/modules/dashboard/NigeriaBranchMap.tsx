@@ -159,11 +159,11 @@ export const NigeriaBranchMap: React.FC = () => {
           </div>
 
           {/* Building Photo Image Container */}
-          <div className="relative w-full h-36 rounded-xl overflow-hidden mt-3 border border-[#122c48]">
+          <div className="relative w-full h-44 rounded-xl overflow-hidden mt-3 border border-[#122c48]">
             <img
-              src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&auto=format&fit=crop&q=80"
-              alt="NSITF Headquarters"
-              className="w-full h-full object-cover"
+              src="/nsitf-hq-building.jpg"
+              alt="NSITF House — Nigeria Social Insurance Trust Fund Headquarters, Abuja"
+              className="w-full h-full object-cover object-center"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#081829] via-transparent to-transparent opacity-80" />
             <div className="absolute bottom-2 left-3 text-[10px] font-mono text-emerald-300 font-bold bg-[#071727]/90 px-2 py-0.5 rounded border border-emerald-500/30 flex items-center gap-1.5">
