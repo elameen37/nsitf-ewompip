@@ -52,7 +52,7 @@ export const LiveTicker: React.FC = () => {
     <div className="glass-panel rounded-xl px-4 py-2.5 border border-slate-800 flex items-center gap-4 overflow-hidden text-xs">
       <div className="flex items-center gap-2 text-nsitf-gold-400 font-mono font-bold uppercase tracking-wider flex-shrink-0 text-[11px] border-r border-slate-800 pr-4 z-10 bg-slate-950/80 backdrop-blur-md">
         <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-        Live Telemetry Marquee
+        Live Telemetry Update
       </div>
 
       {/* Marquee Wrapper: Scrolling right to left slowly */}
