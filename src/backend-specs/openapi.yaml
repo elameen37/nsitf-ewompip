@@ -1,0 +1,63 @@
+openapi: 3.0.3
+info:
+  title: NSITF Enterprise Workforce Management & Intelligence API
+  description: Official NestJS REST API documentation for NSITF EWOMPIP
+  version: 1.0.0
+servers:
+  - url: https://api.nsitf.gov.ng/v1
+    description: Production Federal Government Cluster
+paths:
+  /attendance/geofence-clockin:
+    post:
+      summary: Process Geofenced Dynamic QR Clock-In
+      operationId: clockIn
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                staffId: { type: string }
+                officeId: { type: string }
+                latitude: { type: number }
+                longitude: { type: number }
+                verificationMethod: { type: string, enum: [DYNAMIC_QR, GEOFENCE_GPS, CARD_TAP] }
+      responses:
+        '200':
+          description: Attendance validated and logged to audit stream
+  /tasks/dispatch:
+    post:
+      summary: Dispatch High-Priority Operational Duty Task
+      operationId: dispatchTask
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title: { type: string }
+                category: { type: string }
+                assignedStaffId: { type: string }
+                priority: { type: string }
+                slaHours: { type: integer }
+      responses:
+        '201':
+          description: Operational task dispatched with active SLA timer
+  /ai/copilot-evaluate:
+    post:
+      summary: Run Natural Language Query Evaluation with Vector Embeddings
+      operationId: evaluateCopilot
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                prompt: { type: string }
+                roleContext: { type: string }
+      responses:
+        '200':
+          description: Evaluated AI response with metric breakdown

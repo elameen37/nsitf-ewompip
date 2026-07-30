@@ -1,0 +1,205 @@
+// NSITF EWOMPIP Prisma Schema
+// Database Provider: PostgreSQL (Supabase / Enterprise On-Premises)
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  DIRECTOR_GENERAL
+  REGIONAL_DIRECTOR
+  BRANCH_MANAGER
+  HR_ADMIN
+  FIELD_OFFICER
+}
+
+enum OfficeType {
+  HEADQUARTERS
+  REGIONAL_OFFICE
+  STATE_OFFICE
+  BRANCH_OFFICE
+}
+
+enum GeopoliticalZone {
+  NORTH_CENTRAL
+  NORTH_EAST
+  NORTH_WEST
+  SOUTH_EAST
+  SOUTH_SOUTH
+  SOUTH_WEST
+}
+
+enum AttendanceStatus {
+  CLOCKED_IN
+  CLOCKED_OUT
+  ON_LEAVE
+  FIELD_DUTY
+}
+
+enum GeofenceVerification {
+  VERIFIED_ON_SITE
+  REMOTE_FIELD_APPROVED
+  GEOFENCE_VIOLATION
+}
+
+enum TaskCategory {
+  EMPLOYER_AUDIT
+  COMPENSATION_CLAIM
+  SAFETY_INSPECTION
+  BENEFICIARY_VERIFY
+}
+
+enum TaskPriority {
+  CRITICAL
+  HIGH
+  MEDIUM
+  NORMAL
+}
+
+enum TaskStatus {
+  IN_PROGRESS
+  PENDING_REVIEW
+  COMPLETED
+  SLA_BREACHED
+}
+
+enum AppraisalStatus {
+  DRAFT
+  SUBMITTED
+  SUPERVISOR_REVIEW
+  COMPLETED
+  DISPUTED
+}
+
+model Office {
+  id                  String           @id @default(uuid())
+  code                String           @unique
+  name                String
+  type                OfficeType
+  zone                GeopoliticalZone
+  state               String
+  city                String
+  address             String
+  latitude            Float
+  longitude           Float
+  geofenceRadiusMeters Int             @default(50)
+  managerName         String
+  createdAt           DateTime         @default(now())
+  updatedAt           DateTime         @updatedAt
+
+  staff               Staff[]
+  tasks               Task[]
+  attendanceRecords   AttendanceRecord[]
+
+  @@map("offices")
+}
+
+model Staff {
+  id                   String           @id @default(uuid())
+  staffId              String           @unique // e.g. NSITF/2021/4892
+  fullName             String
+  rank                 String
+  gradeLevel           String // GL 03 to GL 17
+  department           String
+  email                String           @unique
+  phone                String
+  avatarUrl            String?
+  role                 Role             @default(FIELD_OFFICER)
+  officeId             String
+  attendanceStatus     AttendanceStatus @default(CLOCKED_OUT)
+  kpiScore             Float            @default(85.0)
+
+  office               Office           @relation(fields: [officeId], references: [id])
+  attendanceRecords    AttendanceRecord[]
+  assignedTasks        Task[]           @relation("AssignedStaff")
+  appraisals           Appraisal[]
+  auditLogs            AuditLog[]
+
+  createdAt            DateTime         @default(now())
+  updatedAt            DateTime         @updatedAt
+
+  @@map("staff")
+}
+
+model AttendanceRecord {
+  id                   String               @id @default(uuid())
+  staffId              String
+  officeId             String
+  clockInTime          DateTime             @default(now())
+  clockOutTime         DateTime?
+  verificationMethod   String // DYNAMIC_QR | GEOFENCE_GPS | CARD_TAP
+  geofenceStatus       GeofenceVerification @default(VERIFIED_ON_SITE)
+  latitude             Float
+  longitude            Float
+  distanceMeters       Float
+  deviceInfo           String
+
+  staff                Staff                @relation(fields: [staffId], references: [id])
+  office               Office               @relation(fields: [officeId], references: [id])
+
+  @@map("attendance_records")
+}
+
+model Task {
+  id                   String           @id @default(uuid())
+  taskNumber           String           @unique // TSK-NSITF-2026-881
+  title                String
+  category             TaskCategory
+  assignedStaffId      String
+  officeId             String
+  priority             TaskPriority     @default(HIGH)
+  status               TaskStatus       @default(IN_PROGRESS)
+  slaDeadline          DateTime
+  progressPercentage   Int              @default(0)
+  targetCompany        String?
+  claimAmountNaira     Float?
+
+  assignedStaff        Staff            @relation("AssignedStaff", fields: [assignedStaffId], references: [id])
+  office               Office           @relation(fields: [officeId], references: [id])
+
+  createdAt            DateTime         @default(now())
+  updatedAt            DateTime         @updatedAt
+
+  @@map("tasks")
+}
+
+model Appraisal {
+  id                   String           @id @default(uuid())
+  appraisalPeriod      String // e.g. "2026 Mid-Year Cycle"
+  staffId              String
+  selfScore            Float
+  supervisorScore      Float
+  finalGrade           String // OUTSTANDING | EXCEEDS_EXPECTATIONS | MEETS_EXPECTATIONS
+  okrCompletionRate    Float
+  promotionEligible    Boolean          @default(false)
+  status               AppraisalStatus  @default(SUBMITTED)
+  keyAccomplishments   String[]
+  trainingNeeds        String[]
+
+  staff                Staff            @relation(fields: [staffId], references: [id])
+
+  createdAt            DateTime         @default(now())
+  updatedAt            DateTime         @updatedAt
+
+  @@map("appraisals")
+}
+
+model AuditLog {
+  id                   String           @id @default(uuid())
+  actorStaffId         String?
+  actorRole            Role
+  action               String
+  targetResource       String
+  ipAddress            String
+  status               String           @default("SUCCESS")
+  timestamp            DateTime         @default(now())
+
+  actorStaff           Staff?           @relation(fields: [actorStaffId], references: [id])
+
+  @@map("audit_logs")
+}
