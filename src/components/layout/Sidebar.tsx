@@ -109,17 +109,17 @@ export const Sidebar: React.FC<SidebarProps> = ({ mobileOpen = false, onCloseMob
           <div className="px-3 text-[10px] font-mono tracking-widest text-slate-400 uppercase mb-2 font-bold">
             AI COPILOT
           </div>
-          <div className="p-3.5 rounded-2xl bg-[#091d31] border border-[#143455] space-y-2.5">
+          <div className="p-3.5 rounded-2xl dark:bg-[#091d31] bg-white dark:border-[#143455] border-[#c0dbc9] border space-y-2.5">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Bot className="w-4 h-4 text-[#00c878]" />
-                <span className="text-xs font-bold text-white">NSITF Copilot</span>
+                <span className="text-xs font-bold dark:text-white text-slate-800">NSITF Copilot</span>
               </div>
               <span className="px-1.5 py-0.5 rounded bg-emerald-500/20 text-[#00e680] text-[9px] font-mono font-bold border border-emerald-500/30">
                 Active
               </span>
             </div>
-            <p className="text-[11px] text-slate-400 leading-relaxed">
+            <p className="text-[11px] dark:text-slate-400 text-slate-600 leading-relaxed">
               AI-powered insights and recommendations
             </p>
             <button
@@ -127,7 +127,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ mobileOpen = false, onCloseMob
                 setIsCopilotOpen(true);
                 if (onCloseMobile) onCloseMobile();
               }}
-              className="w-full py-2 rounded-xl bg-[#0b2640] hover:bg-[#0e2f50] border border-[#00c878]/30 text-[#00e680] text-xs font-bold transition flex items-center justify-center gap-1.5"
+              className="w-full py-2 rounded-xl dark:bg-[#0b2640] bg-emerald-50 dark:hover:bg-[#0e2f50] hover:bg-emerald-100 dark:border-[#00c878]/30 border-[#00c878]/40 border dark:text-[#00e680] text-emerald-700 text-xs font-bold transition flex items-center justify-center gap-1.5"
             >
               Open Copilot
             </button>

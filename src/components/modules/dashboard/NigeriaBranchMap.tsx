@@ -10,7 +10,7 @@ export const NigeriaBranchMap: React.FC = () => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
       {/* ── LEFT PANEL: NATIONWIDE BRANCH NETWORK RADAR MAP ──────────────── */}
-      <div className="lg:col-span-7 bg-[#081829] rounded-2xl p-5 border border-[#122c48] space-y-4 flex flex-col justify-between relative overflow-hidden">
+      <div className="lg:col-span-7 dark:bg-[#081829] bg-white rounded-2xl p-5 dark:border-[#122c48] border-[#c0dbc9] border space-y-4 flex flex-col justify-between relative overflow-hidden">
         {/* Header */}
         <div className="flex items-center justify-between border-b border-[#122c48] pb-3">
           <div>
@@ -25,14 +25,14 @@ export const NigeriaBranchMap: React.FC = () => {
 
           <button
             onClick={() => setActiveTab('hierarchy')}
-            className="px-3 py-1.5 rounded-lg bg-[#0c2238] border border-[#143252] hover:border-[#00c878]/40 text-slate-300 hover:text-white text-xs font-semibold transition"
+            className="px-3 py-1.5 rounded-lg dark:bg-[#0c2238] bg-white dark:border-[#143252] border-[#c0dbc9] hover:border-[#00c878]/40 dark:text-slate-300 text-slate-700 hover:text-emerald-700 dark:hover:text-white text-xs font-semibold transition"
           >
             View All Zones
           </button>
         </div>
 
         {/* High-Tech Map Canvas with Glowing Nodes */}
-        <div className="relative w-full h-[280px] sm:h-[320px] rounded-xl bg-[#05111e] border border-[#10273f] p-4 flex items-center justify-center overflow-hidden">
+        <div className="relative w-full h-[280px] sm:h-[320px] rounded-xl dark:bg-[#05111e] bg-[#f0f7f3] dark:border-[#10273f] border-[#c0dbc9] p-4 flex items-center justify-center overflow-hidden">
           {/* Map Overlay Grid Mesh */}
           <div className="absolute inset-0 bg-[radial-gradient(#143252_1px,transparent_1px)] [background-size:16px_16px] opacity-40 pointer-events-none" />
 
@@ -43,7 +43,7 @@ export const NigeriaBranchMap: React.FC = () => {
           </svg>
 
           {/* Map Quality Legend Box (Top Left) */}
-          <div className="absolute top-3 left-3 p-2.5 rounded-xl bg-[#071626]/90 border border-[#122c48] backdrop-blur-md space-y-1 text-[10px] font-mono z-10 shadow-lg">
+          <div className="absolute top-3 left-3 p-2.5 rounded-xl dark:bg-[#071626]/90 bg-white/95 dark:border-[#122c48] border-[#c0dbc9] backdrop-blur-md space-y-1 text-[10px] font-mono z-10 shadow-lg">
             <div className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-sm bg-[#00c878]" />
               <span className="text-slate-200">Excellent (80%+)</span>
@@ -145,7 +145,7 @@ export const NigeriaBranchMap: React.FC = () => {
       </div>
 
       {/* ── RIGHT PANEL: NSITF NATIONAL HEADQUARTERS PROFILE CARD ──────────── */}
-      <div className="lg:col-span-5 bg-[#081829] rounded-2xl p-5 border border-[#122c48] space-y-4 flex flex-col justify-between">
+      <div className="lg:col-span-5 dark:bg-[#081829] bg-white rounded-2xl p-5 dark:border-[#122c48] border-[#c0dbc9] border space-y-4 flex flex-col justify-between">
         <div>
           {/* Header */}
           <div className="flex items-center justify-between border-b border-[#122c48] pb-3">

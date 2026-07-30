@@ -21,14 +21,14 @@ export const StatCard: React.FC<StatCardProps> = ({
   accentColor = 'green',
 }) => {
   const iconContainerStyles = {
-    green: 'bg-[#00381e]/60 text-[#00c878] border-[#00703c]',
-    gold: 'bg-[#3b2b00]/60 text-amber-400 border-[#785b00]',
-    cyan: 'bg-[#042838]/60 text-cyan-400 border-[#085273]',
-    purple: 'bg-[#271040]/60 text-purple-400 border-[#502280]',
+    green: 'dark:bg-[#00381e]/60 dark:text-[#00c878] dark:border-[#00703c] bg-[#e6f7ee] text-[#00874a] border-[#a0d9b8]',
+    gold: 'dark:bg-[#3b2b00]/60 dark:text-amber-400 dark:border-[#785b00] bg-[#fff7e6] text-[#b86e00] border-[#f0c97a]',
+    cyan: 'dark:bg-[#042838]/60 dark:text-cyan-400 dark:border-[#085273] bg-[#e6f7fc] text-[#0077ab] border-[#8dd5f0]',
+    purple: 'dark:bg-[#271040]/60 dark:text-purple-400 dark:border-[#502280] bg-[#f1ebfc] text-[#6431c7] border-[#c4a8f0]',
   };
 
   return (
-    <div className="bg-[#091c2f] rounded-2xl p-5 border border-[#132d4a] hover:border-[#00c878]/40 transition-all duration-300 shadow-lg flex flex-col justify-between space-y-3">
+    <div className="dark:bg-[#091c2f] bg-white rounded-2xl p-5 dark:border-[#132d4a] border-[#c0dbc9] border hover:border-[#00c878]/40 transition-all duration-300 shadow-lg flex flex-col justify-between space-y-3">
       {/* Top Header Row */}
       <div className="flex items-start justify-between">
         <div>
