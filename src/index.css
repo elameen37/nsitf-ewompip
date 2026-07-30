@@ -71,26 +71,21 @@
 .dark .hover\:bg-slate-900\/50:hover { background-color: rgba(10, 29, 48, 0.5) !important; }
 
 /* ═══════════════════════════════════════════════════════════════════════════ */
-/*  OPTIMIZED LIGHT MODE SURFACES & ACCENT COLOR SYSTEM                       */
+/*  PURE WHITE CARDS & INDICATOR SURFACES IN LIGHT MODE                        */
 /* ═══════════════════════════════════════════════════════════════════════════ */
 
 html:not(.dark) .glass-panel,
-html.light .glass-panel {
-  background: #ffffff !important;
-  border: 1px solid rgba(0, 104, 55, 0.2) !important;
-  box-shadow: 0 4px 20px 0 rgba(0, 80, 40, 0.06) !important;
-}
-
+html.light .glass-panel,
 html:not(.dark) .glass-card,
 html.light .glass-card {
   background: #ffffff !important;
-  border: 1px solid rgba(0, 104, 55, 0.16) !important;
-  box-shadow: 0 2px 14px rgba(0, 50, 25, 0.05) !important;
+  border: 1px solid rgba(0, 104, 55, 0.18) !important;
+  box-shadow: 0 4px 18px 0 rgba(0, 80, 40, 0.05) !important;
 }
 
 html:not(.dark) .glass-card:hover,
 html.light .glass-card:hover {
-  border-color: rgba(0, 104, 55, 0.4) !important;
+  border-color: rgba(0, 104, 55, 0.35) !important;
   box-shadow: 0 8px 24px rgba(0, 104, 55, 0.12) !important;
 }
 
@@ -102,36 +97,33 @@ html.light #root {
   min-height: 100vh;
 }
 
-/* Remap dark background classes to crisp executive light surfaces */
+/* ALL cards, indicator cards, sub-panels & stat boxes -> PURE WHITE #ffffff in Light Mode */
 html:not(.dark) .bg-\[\#050e1a\],
 html:not(.dark) .bg-\[\#071727\],
 html:not(.dark) .bg-\[\#081829\],
 html:not(.dark) .bg-\[\#091b2c\],
 html:not(.dark) .bg-\[\#0a1c2e\],
 html:not(.dark) .bg-\[\#0a1d30\],
+html:not(.dark) .bg-\[\#061424\],
+html:not(.dark) .bg-\[\#050f1c\],
+html:not(.dark) .bg-\[\#05111e\],
 html:not(.dark) .bg-slate-950,
 html:not(.dark) .bg-slate-900,
 html:not(.dark) .bg-slate-850,
+html:not(.dark) .bg-slate-800,
 html.light .bg-\[\#050e1a\],
 html.light .bg-\[\#071727\],
 html.light .bg-\[\#081829\],
 html.light .bg-\[\#091b2c\],
 html.light .bg-\[\#0a1c2e\],
 html.light .bg-\[\#0a1d30\],
-html.light .bg-slate-950,
-html.light .bg-slate-900 {
-  background-color: #ffffff !important;
-}
-
-html:not(.dark) .bg-\[\#061424\],
-html:not(.dark) .bg-\[\#050f1c\],
-html:not(.dark) .bg-\[\#05111e\],
-html:not(.dark) .bg-slate-800,
 html.light .bg-\[\#061424\],
 html.light .bg-\[\#050f1c\],
 html.light .bg-\[\#05111e\],
+html.light .bg-slate-950,
+html.light .bg-slate-900,
 html.light .bg-slate-800 {
-  background-color: #f4faf6 !important;
+  background-color: #ffffff !important;
 }
 
 /* High-contrast, sharp Light Mode Typography */
@@ -153,7 +145,7 @@ html.light .text-slate-400 { color: #38664f !important; }
 html:not(.dark) .text-slate-500,
 html.light .text-slate-500 { color: #507c65 !important; }
 
-/* Light mode crisp borders */
+/* Light mode crisp borders for all cards and indicator boxes */
 html:not(.dark) .border-\[\#122c48\],
 html:not(.dark) .border-\[\#143252\],
 html:not(.dark) .border-\[\#10273f\],
@@ -215,6 +207,35 @@ html.light .text-cyan-400 { color: #0077ab !important; }
 
 html:not(.dark) .text-purple-400,
 html.light .text-purple-400 { color: #6431c7 !important; }
+
+/* Icon badge backgrounds in Light Mode */
+html:not(.dark) .bg-emerald-500\/10,
+html:not(.dark) .bg-emerald-500\/15,
+html.light .bg-emerald-500\/10,
+html.light .bg-emerald-500\/15 {
+  background-color: #e6f7ee !important;
+}
+
+html:not(.dark) .bg-amber-500\/10,
+html:not(.dark) .bg-amber-500\/15,
+html.light .bg-amber-500\/10,
+html.light .bg-amber-500\/15 {
+  background-color: #fff7e6 !important;
+}
+
+html:not(.dark) .bg-cyan-500\/10,
+html:not(.dark) .bg-cyan-500\/15,
+html.light .bg-cyan-500\/10,
+html.light .bg-cyan-500\/15 {
+  background-color: #e6f7fc !important;
+}
+
+html:not(.dark) .bg-purple-500\/10,
+html:not(.dark) .bg-purple-500\/15,
+html.light .bg-purple-500\/10,
+html.light .bg-purple-500\/15 {
+  background-color: #f1ebfc !important;
+}
 
 /* ═══════════════════════════════════════════════════════════════════════════ */
 /*  CUSTOM SCROLLBARS                                                          */
