@@ -31,12 +31,21 @@ const MainContent: React.FC = () => {
 
 export const AppContent: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [desktopCollapsed, setDesktopCollapsed] = useState(false);
 
   return (
     <div className="min-h-screen bg-[#050e1a] text-slate-100 flex flex-col font-sans selection:bg-[#00c878] selection:text-slate-950">
-      <Header onToggleMobileMenu={() => setMobileMenuOpen(!mobileMenuOpen)} />
-      <div className="flex flex-1 relative">
-        <Sidebar mobileOpen={mobileMenuOpen} onCloseMobile={() => setMobileMenuOpen(false)} />
+      <Header
+        onToggleMobileMenu={() => setMobileMenuOpen(!mobileMenuOpen)}
+        onToggleDesktopSidebar={() => setDesktopCollapsed(!desktopCollapsed)}
+        desktopSidebarCollapsed={desktopCollapsed}
+      />
+      <div className="flex flex-1 relative overflow-hidden">
+        <Sidebar
+          mobileOpen={mobileMenuOpen}
+          onCloseMobile={() => setMobileMenuOpen(false)}
+          desktopCollapsed={desktopCollapsed}
+        />
         <MainContent />
       </div>
       <CommandPalette />
