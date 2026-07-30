@@ -131,10 +131,10 @@ html.light .bg-slate-900 {
   background-color: #ffffff !important;
 }
 
-html:not(.dark) .bg-[#061424],
-html:not(.dark) .bg-[#050f1c],
-html.light .bg-[#061424],
-html.light .bg-[#050f1c] {
+html:not(.dark) .bg-\[\#061424\],
+html:not(.dark) .bg-\[\#050f1c\],
+html.light .bg-\[\#061424\],
+html.light .bg-\[\#050f1c\] {
   background-color: #f4faf6 !important;
 }
 
