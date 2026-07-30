@@ -10,7 +10,7 @@ export const INITIAL_BRANCHES: Branch[] = [
     state: 'FCT Abuja',
     city: 'Abuja Central Business District',
     address: 'Plot 794, Muhammad Buhari Way, CBD, Abuja',
-    managerName: 'Dr. Oluwaseun Adesina (Director General)',
+    managerName: 'Mr. Faleye Adesina (Director-General/CEO)',
     staffCount: 850,
     attendanceRate: 97.4,
     productivityIndex: 94.8,
@@ -178,7 +178,7 @@ export const INITIAL_STAFF: StaffMember[] = [
   {
     id: 'st-001',
     staffId: 'NSITF/DG/2021/001',
-    fullName: 'Dr. Oluwaseun Adesina',
+    fullName: 'Mr. Faleye Adesina',
     rank: 'Director General / CEO',
     gradeLevel: 'GL 17 (Executive)',
     department: 'Executive Office',
@@ -295,7 +295,7 @@ export const INITIAL_ATTENDANCE: AttendanceRecord[] = [
   {
     id: 'att-101',
     staffId: 'NSITF/DG/2021/001',
-    staffName: 'Dr. Oluwaseun Adesina',
+    staffName: 'Mr. Faleye Adesina',
     gradeLevel: 'GL 17',
     department: 'Executive Office',
     branchName: 'NSITF National Headquarters',
@@ -507,7 +507,7 @@ export const INITIAL_AI_ALERTS: PredictiveAIAlert[] = [
 export const INITIAL_AUDIT_LOGS: AuditLogItem[] = [
   {
     id: 'log-9001',
-    actorName: 'Dr. Oluwaseun Adesina',
+    actorName: 'Mr. Faleye Adesina',
     actorRole: 'DIRECTOR_GENERAL',
     action: 'Executive Policy Approval: National Claims SLA Baseline Standard',
     targetResource: 'System Policy Config #4829',

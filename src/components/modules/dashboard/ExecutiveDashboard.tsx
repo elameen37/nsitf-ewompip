@@ -95,7 +95,7 @@ export const ExecutiveDashboard: React.FC = () => {
           </div>
 
           <div className="flex flex-wrap items-center gap-3 text-slate-300 text-[11px]">
-            <span>Dr. Oluwaseun Adesina (DG)</span>
+            <span>Mr. Faleye Adesina (DG/CEO)</span>
             <span className="text-slate-600">•</span>
             <span>NSITF National Headquarters</span>
             <span className="text-slate-600">•</span>

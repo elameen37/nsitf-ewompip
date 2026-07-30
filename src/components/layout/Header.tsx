@@ -117,10 +117,10 @@ export const Header: React.FC<{ onToggleMobileMenu?: () => void }> = ({ onToggle
           {/* Profile Card Pill (Executive User) */}
           <div className="hidden sm:flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-[#0a1d30] border border-[#143252]">
             <div className="relative w-7 h-7 rounded-lg bg-emerald-700/40 border border-emerald-500/40 flex items-center justify-center text-emerald-300 font-bold text-xs font-mono">
-              OA
+              FA
             </div>
             <div className="text-left">
-              <div className="text-xs font-bold text-white leading-tight">Dr. Oluwaseun Adesina</div>
+              <div className="text-xs font-bold text-white leading-tight">Mr. Faleye Adesina</div>
               <div className="text-[10px] text-slate-400 flex items-center gap-1.5 font-mono">
                 <span>Director-General / CEO</span>
                 <span className="px-1.5 py-0.2 rounded bg-emerald-500/20 text-[#00e680] text-[9px] font-bold border border-emerald-500/30 flex items-center gap-1">
@@ -151,10 +151,15 @@ export const Header: React.FC<{ onToggleMobileMenu?: () => void }> = ({ onToggle
           {/* Theme Toggle */}
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-xl bg-[#0a1c2e] border border-[#143252] hover:border-slate-600 text-slate-300 transition"
-            title="Toggle Theme"
+            className="p-2 rounded-xl bg-slate-900 border border-slate-800 hover:border-emerald-500/40 text-slate-300 hover:text-white transition flex items-center justify-center gap-1.5 shadow-sm"
+            title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+            aria-label="Toggle Theme Mode"
           >
-            {theme === 'dark' ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-[#00c878]" />}
+            {theme === 'dark' ? (
+              <Sun className="w-4 h-4 text-amber-400 animate-spin-slow" />
+            ) : (
+              <Moon className="w-4 h-4 text-emerald-600" />
+            )}
           </button>
 
           {/* Settings */}

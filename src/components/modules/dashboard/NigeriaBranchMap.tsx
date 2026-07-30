@@ -203,7 +203,7 @@ export const NigeriaBranchMap: React.FC = () => {
           <div className="mt-4 p-3 rounded-xl bg-[#061424] border border-[#122c48] flex items-center justify-between">
             <div>
               <div className="text-[10px] text-slate-400 uppercase font-mono font-bold">Head of Directorate</div>
-              <div className="text-xs font-bold text-white mt-0.5">Dr. Oluwaseun Adesina (Director-General)</div>
+              <div className="text-xs font-bold text-white mt-0.5">Mr. Faleye Adesina (Director-General/CEO)</div>
             </div>
             <CheckCircle2 className="w-5 h-5 text-[#00c878] flex-shrink-0" />
           </div>
