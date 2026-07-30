@@ -12,6 +12,10 @@ import {
   MapPin,
   Menu,
   ChevronDown,
+  RefreshCw,
+  SlidersHorizontal,
+  Mail,
+  Settings,
   ShieldCheck,
   UserCheck
 } from 'lucide-react';
@@ -31,39 +35,48 @@ export const Header: React.FC<{ onToggleMobileMenu?: () => void }> = ({ onToggle
   } = useTelemetry();
   const { theme, toggleTheme } = useTheme();
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
+  const [lastRefreshTime, setLastRefreshTime] = useState('08:42 AM WAT');
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   const stateOptions = NIGERIA_ZONE_STATES[selectedZone];
 
+  const handleRefresh = () => {
+    setIsRefreshing(true);
+    setTimeout(() => {
+      const now = new Date();
+      setLastRefreshTime(now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + ' WAT');
+      setIsRefreshing(false);
+    }, 600);
+  };
+
   return (
-    <header className="sticky top-0 z-30 w-full glass-panel border-b border-nsitf-green-500/20 px-3 sm:px-5 py-2.5 sm:py-3 flex flex-col gap-2.5 transition-all">
-      {/* Top Main Row */}
-      <div className="flex items-center justify-between gap-2 w-full">
-        {/* Brand & Logo Section */}
-        <div className="flex items-center gap-2 sm:gap-3">
-          {/* Mobile Menu Drawer Toggle */}
+    <header className="sticky top-0 z-30 w-full bg-[#071727] border-b border-[#122c48] flex flex-col transition-all">
+      {/* ── Top Main Header Row ────────────────────────────────────────────── */}
+      <div className="px-4 sm:px-6 py-2.5 flex items-center justify-between gap-4 w-full">
+        {/* Brand & Logo */}
+        <div className="flex items-center gap-3">
           <button
             onClick={onToggleMobileMenu}
-            className="lg:hidden p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white"
-            title="Toggle Menu"
+            className="lg:hidden p-2 rounded-xl bg-[#0a1c2e] border border-[#143252] text-slate-300 hover:text-white"
+            title="Toggle Navigation"
           >
             <Menu className="w-5 h-5" />
           </button>
 
-          {/* Official NSITF Logo */}
-          <div className="relative flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white p-1 shadow-glow-green border border-nsitf-green-500/30 flex-shrink-0">
+          <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-white p-1 shadow-glow-green border border-emerald-500/30 flex-shrink-0">
             <img
               src="/nsitf-logo.png"
               alt="NSITF Official Seal"
               className="w-full h-full object-contain"
             />
-            <span className="absolute -bottom-1 -right-1 w-3 h-3 bg-emerald-500 border-2 border-slate-950 rounded-full animate-pulse" />
+            <span className="absolute -bottom-1 -right-1 w-2.5 h-2.5 bg-[#00c878] border-2 border-[#071727] rounded-full animate-pulse" />
           </div>
 
           <div>
-            <div className="flex items-center gap-1.5">
-              <h1 className="text-sm sm:text-base font-bold tracking-tight text-white flex items-center gap-1.5">
-                NSITF{' '}
-                <span className="text-[10px] sm:text-xs px-1.5 py-0.5 rounded-full bg-nsitf-green-900/60 border border-nsitf-green-500/30 text-nsitf-green-300 font-mono">
+            <div className="flex items-center gap-2">
+              <h1 className="text-base sm:text-lg font-black tracking-tight text-white flex items-center gap-2 font-mono">
+                NSITF
+                <span className="text-[10px] sm:text-xs px-2 py-0.5 rounded-md bg-[#00381e] border border-[#008048] text-[#00e680] font-bold font-mono tracking-wide">
                   EWOMPIP v1.0
                 </span>
               </h1>
@@ -74,121 +87,162 @@ export const Header: React.FC<{ onToggleMobileMenu?: () => void }> = ({ onToggle
           </div>
         </div>
 
-        {/* Center Search - Desktop */}
-        <div className="hidden md:flex items-center gap-2 flex-1 max-w-sm mx-2">
+        {/* Center Global Search Field */}
+        <div className="hidden md:flex items-center gap-2 flex-1 max-w-md mx-4">
           <button
             onClick={() => setIsCommandPaletteOpen(true)}
-            className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl bg-slate-900/90 border border-slate-800 hover:border-nsitf-green-500/40 text-slate-400 text-xs transition"
+            className="w-full flex items-center gap-3 px-3.5 py-2 rounded-xl bg-[#0a1d30] border border-[#143252] hover:border-[#00c878]/50 text-slate-400 text-xs transition shadow-inner"
           >
-            <Search className="w-3.5 h-3.5 text-nsitf-green-400 flex-shrink-0" />
-            <span className="truncate">Search officers, branches, audits...</span>
-            <kbd className="hidden lg:inline-flex items-center px-1.5 py-0.5 rounded bg-slate-800 text-[10px] font-mono text-slate-300 border border-slate-700">
+            <Search className="w-4 h-4 text-[#00c878] flex-shrink-0" />
+            <span className="truncate text-slate-400">Search officers, branches, audits...</span>
+            <kbd className="hidden lg:inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-[#061424] text-[10px] font-mono text-slate-400 border border-[#143252]">
               ⌘K
             </kbd>
           </button>
         </div>
 
-        {/* Right Action Controls */}
-        <div className="flex items-center gap-1.5 sm:gap-2">
-          {/* Mobile Search */}
+        {/* Right Action Controls & User Profile */}
+        <div className="flex items-center gap-2 sm:gap-3">
+          {/* Mobile Search Toggle */}
           <button
             onClick={() => setMobileSearchOpen(!mobileSearchOpen)}
-            className="md:hidden p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300"
+            className="md:hidden p-2 rounded-xl bg-[#0a1c2e] border border-[#143252] text-slate-300"
           >
-            <Search className="w-4 h-4 text-nsitf-green-400" />
+            <Search className="w-4 h-4 text-[#00c878]" />
           </button>
 
           {/* Executive Persona Switcher */}
           <RoleSwitcher />
 
-          {/* Clock In Button */}
+          {/* Profile Card Pill (Executive User) */}
+          <div className="hidden sm:flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-[#0a1d30] border border-[#143252]">
+            <div className="relative w-7 h-7 rounded-lg bg-emerald-700/40 border border-emerald-500/40 flex items-center justify-center text-emerald-300 font-bold text-xs font-mono">
+              OA
+            </div>
+            <div className="text-left">
+              <div className="text-xs font-bold text-white leading-tight">Dr. Oluwaseun Adesina</div>
+              <div className="text-[10px] text-slate-400 flex items-center gap-1.5 font-mono">
+                <span>Director-General / CEO</span>
+                <span className="px-1.5 py-0.2 rounded bg-emerald-500/20 text-[#00e680] text-[9px] font-bold border border-emerald-500/30 flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#00c878] animate-pulse" />
+                  Online
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Notification Bell */}
           <button
-            onClick={() => setIsClockInModalOpen(true)}
-            className="hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-xl bg-gradient-to-r from-nsitf-green-700 to-nsitf-green-600 hover:from-nsitf-green-600 hover:to-nsitf-green-500 text-white text-xs font-semibold shadow-glow-green border border-nsitf-green-400/30 transition"
+            className="relative p-2 rounded-xl bg-[#0a1c2e] border border-[#143252] hover:border-slate-600 text-slate-300 hover:text-white transition"
+            title="Notifications"
           >
-            <Clock className="w-3.5 h-3.5 text-nsitf-gold-300" />
-            <span className="hidden lg:inline">{userAttendanceStatus === 'CLOCKED_IN' ? 'Clocked In ✓' : 'Geofence Clock-In'}</span>
-            <span className="w-2 h-2 rounded-full bg-nsitf-gold-400 animate-ping" />
+            <Bell className="w-4 h-4" />
+            <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-rose-500 border border-[#071727]" />
           </button>
 
-          {/* Copilot */}
+          {/* Messages */}
           <button
-            onClick={() => setIsCopilotOpen(true)}
-            className="relative p-2 rounded-xl bg-slate-900/90 border border-nsitf-gold-500/40 hover:border-nsitf-gold-400 text-nsitf-gold-400 hover:text-nsitf-gold-300 shadow-glow-gold transition"
-            title="NSITF Copilot AI"
+            className="p-2 rounded-xl bg-[#0a1c2e] border border-[#143252] hover:border-slate-600 text-slate-300 hover:text-white transition hidden sm:block"
+            title="Messages"
           >
-            <Bot className="w-4 h-4 sm:w-5 sm:h-5" />
-            <Sparkles className="w-2.5 h-2.5 text-nsitf-gold-300 absolute -top-0.5 -right-0.5 animate-spin" style={{ animationDuration: '6s' }} />
+            <Mail className="w-4 h-4" />
           </button>
 
           {/* Theme Toggle */}
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-xl bg-slate-900/80 border border-slate-800 hover:border-slate-700 text-slate-300 transition"
-            title="Toggle Light/Dark Mode"
+            className="p-2 rounded-xl bg-[#0a1c2e] border border-[#143252] hover:border-slate-600 text-slate-300 transition"
+            title="Toggle Theme"
           >
-            {theme === 'dark' ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-nsitf-green-600" />}
+            {theme === 'dark' ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-[#00c878]" />}
+          </button>
+
+          {/* Settings */}
+          <button
+            className="p-2 rounded-xl bg-[#0a1c2e] border border-[#143252] hover:border-slate-600 text-slate-300 hover:text-white transition hidden sm:block"
+            title="Control Settings"
+          >
+            <Settings className="w-4 h-4" />
           </button>
         </div>
       </div>
 
-      {/* Zone + State Filter Row — visible on xl screens */}
-      <div className="hidden xl:flex items-center gap-2 py-1 border-t border-slate-800/60 pt-2">
-        <MapPin className="w-3.5 h-3.5 text-nsitf-green-400 flex-shrink-0" />
-        <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider font-semibold">Filter:</span>
+      {/* ── Filter & Control Strip (Below Top Header) ───────────────────────── */}
+      <div className="px-4 sm:px-6 py-2 bg-[#061424] border-t border-[#122c48] flex flex-wrap items-center justify-between gap-3 text-xs">
+        {/* Left Filter Dropdowns */}
+        <div className="flex flex-wrap items-center gap-3">
+          <div className="flex items-center gap-1.5 text-[11px] font-mono text-slate-400 uppercase font-bold tracking-wider">
+            <SlidersHorizontal className="w-3.5 h-3.5 text-[#00c878]" />
+            <span>FILTERS:</span>
+          </div>
 
-        {/* Zone Selector */}
-        <div className="relative">
-          <select
-            value={selectedZone}
-            onChange={(e) => setSelectedZone(e.target.value as any)}
-            className="appearance-none bg-slate-900 border border-slate-800 hover:border-nsitf-green-500/50 text-xs text-slate-200 pl-3 pr-7 py-1.5 rounded-lg focus:outline-none focus:border-nsitf-green-500 font-medium cursor-pointer transition"
-          >
-            <option value="ALL">🌐 All Geopolitical Zones</option>
-            <option value="NORTH_CENTRAL">📍 North-Central</option>
-            <option value="NORTH_EAST">📍 North-East</option>
-            <option value="NORTH_WEST">📍 North-West</option>
-            <option value="SOUTH_EAST">📍 South-East</option>
-            <option value="SOUTH_SOUTH">📍 South-South</option>
-            <option value="SOUTH_WEST">📍 South-West</option>
-          </select>
-          <ChevronDown className="w-3 h-3 text-slate-400 absolute right-2 top-2 pointer-events-none" />
+          {/* Geopolitical Zone Selector */}
+          <div className="relative">
+            <select
+              value={selectedZone}
+              onChange={(e) => setSelectedZone(e.target.value as any)}
+              className="appearance-none bg-[#0a1d30] border border-[#143252] hover:border-[#00c878]/50 text-xs text-slate-200 pl-3 pr-7 py-1.5 rounded-lg focus:outline-none focus:border-[#00c878] font-medium cursor-pointer transition"
+            >
+              <option value="ALL">All Geopolitical Zones</option>
+              <option value="NORTH_CENTRAL">North-Central (Abuja HQ)</option>
+              <option value="NORTH_EAST">North-East Zone</option>
+              <option value="NORTH_WEST">North-West Zone</option>
+              <option value="SOUTH_EAST">South-East Zone</option>
+              <option value="SOUTH_SOUTH">South-South Zone</option>
+              <option value="SOUTH_WEST">South-West Zone</option>
+            </select>
+            <ChevronDown className="w-3.5 h-3.5 text-slate-400 absolute right-2.5 top-2 pointer-events-none" />
+          </div>
+
+          {/* State Selector */}
+          <div className="relative">
+            <select
+              value={selectedState}
+              onChange={(e) => setSelectedState(e.target.value)}
+              className="appearance-none bg-[#0a1d30] border border-[#143252] hover:border-[#00c878]/50 text-xs text-slate-200 pl-3 pr-7 py-1.5 rounded-lg focus:outline-none focus:border-[#00c878] font-medium cursor-pointer transition min-w-[170px]"
+            >
+              <option value="ALL">All States (36 + FCT)</option>
+              {stateOptions.map((st) => (
+                <option key={st} value={st}>
+                  {st} State
+                </option>
+              ))}
+            </select>
+            <ChevronDown className="w-3.5 h-3.5 text-slate-400 absolute right-2.5 top-2 pointer-events-none" />
+          </div>
+
+          {/* Active Filter Badge */}
+          {(selectedZone !== 'ALL' || selectedState !== 'ALL') && (
+            <span className="px-2.5 py-1 rounded-md bg-[#00381e] border border-[#008048] text-[#00e680] text-[10px] font-mono font-bold flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#00c878] animate-pulse" />
+              Active Filter: {selectedState !== 'ALL' ? selectedState : selectedZone.replace('_', ' ')}
+            </span>
+          )}
         </div>
 
-        {/* State Selector — dynamically updates when zone changes */}
-        <div className="relative">
-          <select
-            value={selectedState}
-            onChange={(e) => setSelectedState(e.target.value)}
-            className="appearance-none bg-slate-900 border border-slate-800 hover:border-nsitf-green-500/50 text-xs text-slate-200 pl-3 pr-7 py-1.5 rounded-lg focus:outline-none focus:border-nsitf-green-500 font-medium cursor-pointer transition min-w-[160px]"
+        {/* Right Telemetry Refresh Status */}
+        <div className="flex items-center gap-3 text-slate-400 text-xs font-mono ml-auto sm:ml-0">
+          <span>Last Updated: <strong className="text-slate-200 font-normal">{lastRefreshTime}</strong></span>
+          <button
+            onClick={handleRefresh}
+            disabled={isRefreshing}
+            className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#0a1d30] border border-[#143252] hover:border-[#00c878]/50 text-slate-300 hover:text-white transition disabled:opacity-50"
           >
-            <option value="ALL">— All States{selectedZone !== 'ALL' ? ` (${stateOptions.length})` : ' (36 + FCT)'}</option>
-            {stateOptions.map((state) => (
-              <option key={state} value={state}>
-                {state} State{state === 'FCT – Abuja' ? '' : ''}
-              </option>
-            ))}
-          </select>
-          <ChevronDown className="w-3 h-3 text-slate-400 absolute right-2 top-2 pointer-events-none" />
+            <RefreshCw className={`w-3.5 h-3.5 text-[#00c878] ${isRefreshing ? 'animate-spin' : ''}`} />
+            <span>Refresh</span>
+          </button>
         </div>
-
-        {/* Active filter summary badge */}
-        {(selectedZone !== 'ALL' || selectedState !== 'ALL') && (
-          <span className="text-[10px] px-2 py-1 rounded-lg bg-nsitf-green-900/50 border border-nsitf-green-500/30 text-nsitf-green-300 font-mono font-semibold">
-            {selectedState !== 'ALL' ? selectedState : selectedZone.replace('_', ' ')}
-          </span>
-        )}
       </div>
 
-      {/* Mobile Search Bar */}
+      {/* Mobile Search Expandable Box */}
       {mobileSearchOpen && (
-        <div className="md:hidden w-full animate-in fade-in slide-in-from-top-1 duration-150">
+        <div className="md:hidden px-4 py-2 bg-[#071727] border-t border-[#122c48] animate-in fade-in duration-150">
           <button
             onClick={() => setIsCommandPaletteOpen(true)}
-            className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 text-xs"
+            className="w-full flex items-center gap-2 px-3 py-2 rounded-xl bg-[#0a1d30] border border-[#143252] text-slate-400 text-xs"
           >
-            <Search className="w-4 h-4 text-nsitf-green-400" />
-            <span className="truncate">Search officers, branches, ECA tasks...</span>
+            <Search className="w-4 h-4 text-[#00c878]" />
+            <span className="truncate">Search officers, branches, audits...</span>
           </button>
         </div>
       )}

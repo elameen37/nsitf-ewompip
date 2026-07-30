@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useTelemetry } from '../../context/TelemetryContext';
-import { Bot, Sparkles, X, Send, ChevronRight, CheckCircle2, ShieldAlert, Cpu, BarChart3 } from 'lucide-react';
+import { Bot, Sparkles, X, Send, ChevronRight, CheckCircle2, ShieldAlert, Cpu, BarChart3, Zap } from 'lucide-react';
 
 interface ChatMessage {
   id: string;
@@ -23,6 +23,7 @@ const PROMPT_SUGGESTIONS = [
 
 export const AICopilotDock: React.FC = () => {
   const { isCopilotOpen, setIsCopilotOpen, branches, pmsAppraisals, aiAlerts } = useTelemetry();
+  const messagesEndRef = useRef<HTMLDivElement>(null);
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: 'msg-1',
@@ -33,6 +34,10 @@ export const AICopilotDock: React.FC = () => {
   ]);
   const [input, setInput] = useState('');
   const [isThinking, setIsThinking] = useState(false);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages, isThinking]);
 
   if (!isCopilotOpen) return null;
 
@@ -96,82 +101,111 @@ export const AICopilotDock: React.FC = () => {
 
   return (
     <>
-      <div className="fixed inset-0 bg-slate-950/60 backdrop-blur-xs sm:hidden z-40" onClick={() => setIsCopilotOpen(false)} />
-      <div className="fixed inset-y-0 right-0 z-50 w-full sm:w-96 max-w-full bg-slate-950/95 backdrop-blur-xl border-l border-nsitf-gold-500/30 shadow-2xl flex flex-col justify-between animate-in slide-in-from-right duration-200">
-        {/* Dock Header */}
-        <div className="p-4 border-b border-slate-800 flex items-center justify-between bg-slate-900/80">
+      {/* Backdrop */}
+      <div
+        className="fixed inset-0 bg-[#050e1a]/70 backdrop-blur-sm sm:hidden z-40"
+        onClick={() => setIsCopilotOpen(false)}
+      />
+
+      {/* Slide-in Dock Panel */}
+      <div className="fixed inset-y-0 right-0 z-50 w-full sm:w-[400px] max-w-full bg-[#071727] border-l border-[#143252] shadow-2xl flex flex-col animate-in slide-in-from-right duration-200">
+        {/* Header */}
+        <div className="p-4 border-b border-[#122c48] flex items-center justify-between bg-[#061424]">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-xl bg-nsitf-gold-500/20 border border-nsitf-gold-500/40 text-nsitf-gold-300">
+            <div className="p-2.5 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-400">
               <Bot className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-sm font-bold text-white flex items-center gap-2">
+              <h3 className="text-sm font-extrabold text-white flex items-center gap-2">
                 NSITF Copilot AI
-                <span className="text-[10px] px-1.5 py-0.5 rounded bg-nsitf-gold-500/20 border border-nsitf-gold-500/40 text-nsitf-gold-300 font-mono">
+                <span className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/20 border border-emerald-500/30 text-[#00e680] font-mono font-bold flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#00c878] animate-pulse" />
                   ONLINE
                 </span>
               </h3>
               <p className="text-[11px] text-slate-400">Workforce Intelligence & Policy Assistant</p>
             </div>
           </div>
+
           <button
             onClick={() => setIsCopilotOpen(false)}
-            className="p-1.5 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition"
+            className="p-1.5 rounded-lg hover:bg-[#0c1e30] text-slate-400 hover:text-white transition"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
-        {/* Messages List */}
+        {/* AI Alerts Quick Summary Strip */}
+        {aiAlerts.length > 0 && (
+          <div className="px-4 py-2 bg-amber-500/10 border-b border-amber-500/20 flex items-center gap-2 text-xs">
+            <ShieldAlert className="w-4 h-4 text-amber-400 flex-shrink-0" />
+            <span className="text-amber-300 font-mono font-bold">{aiAlerts.length} active risk alerts</span>
+            <span className="text-slate-400">require executive action</span>
+          </div>
+        )}
+
+        {/* Messages Scroll Area */}
         <div className="flex-1 overflow-y-auto p-4 space-y-4 text-xs">
           {messages.map((msg) => (
             <div
               key={msg.id}
               className={`flex flex-col ${msg.sender === 'user' ? 'items-end' : 'items-start'}`}
             >
+              {msg.sender === 'ai' && (
+                <div className="flex items-center gap-1.5 mb-1 text-[10px] font-mono text-slate-500">
+                  <Sparkles className="w-3 h-3 text-amber-400" />
+                  <span className="text-slate-400">NSITF Copilot</span>
+                </div>
+              )}
+
               <div
-                className={`max-w-[85%] p-3.5 rounded-2xl leading-relaxed ${
+                className={`max-w-[88%] p-3.5 rounded-2xl leading-relaxed text-[12px] ${
                   msg.sender === 'user'
-                    ? 'bg-nsitf-green-700 text-white rounded-br-none shadow-glow-green border border-nsitf-green-500/30'
-                    : 'bg-slate-900/90 text-slate-200 rounded-bl-none border border-slate-800 shadow-glass'
+                    ? 'bg-[#00381e] text-white rounded-br-none border border-[#008048]'
+                    : 'bg-[#091b2c] text-slate-200 rounded-bl-none border border-[#122c48]'
                 }`}
               >
                 <div className="whitespace-pre-wrap">{msg.text}</div>
 
                 {msg.dataSummary && (
-                  <div className="mt-3 pt-3 border-t border-slate-800 bg-slate-950/60 p-2.5 rounded-xl border border-nsitf-gold-500/30 space-y-1">
-                    <div className="flex items-center gap-1.5 text-nsitf-gold-400 font-bold text-[11px]">
+                  <div className="mt-3 pt-3 border-t border-[#122c48] bg-[#050f1c] p-2.5 rounded-xl border border-amber-500/25 space-y-1.5">
+                    <div className="flex items-center gap-1.5 text-amber-400 font-bold text-[11px]">
                       <BarChart3 className="w-3.5 h-3.5" />
                       <span>{msg.dataSummary.metric}</span>
                     </div>
-                    <div className="text-xs text-white font-semibold font-mono">{msg.dataSummary.value}</div>
-                    <div className="text-[10px] text-slate-400">💡 {msg.dataSummary.recommendation}</div>
+                    <div className="text-sm font-extrabold text-white font-mono">{msg.dataSummary.value}</div>
+                    <div className="text-[11px] text-slate-400">💡 {msg.dataSummary.recommendation}</div>
                   </div>
                 )}
               </div>
+
               <span className="text-[9px] text-slate-500 font-mono mt-1 px-1">{msg.timestamp}</span>
             </div>
           ))}
 
           {isThinking && (
             <div className="flex items-center gap-2 text-slate-400 text-xs italic">
-              <Cpu className="w-4 h-4 text-nsitf-gold-400 animate-spin" />
+              <Cpu className="w-4 h-4 text-amber-400 animate-spin" />
               <span>Querying NSITF vector embeddings & database...</span>
             </div>
           )}
+
+          <div ref={messagesEndRef} />
         </div>
 
-        {/* Suggestions & Input */}
-        <div className="p-4 border-t border-slate-800 bg-slate-900/80 space-y-3">
+        {/* Suggestions & Input Footer */}
+        <div className="p-4 border-t border-[#122c48] bg-[#061424] space-y-3">
           {messages.length < 3 && (
             <div className="space-y-1.5">
-              <div className="text-[10px] font-mono text-slate-400 uppercase font-semibold">Suggested Executive Queries</div>
+              <div className="text-[10px] font-mono text-slate-400 uppercase font-bold tracking-wider">
+                SUGGESTED EXECUTIVE QUERIES
+              </div>
               <div className="space-y-1">
                 {PROMPT_SUGGESTIONS.map((s, idx) => (
                   <button
                     key={idx}
                     onClick={() => handleSend(s)}
-                    className="w-full text-left p-2 rounded-xl bg-slate-950/70 hover:bg-nsitf-green-950/60 border border-slate-800 hover:border-nsitf-green-500/30 text-[11px] text-slate-300 transition line-clamp-1 flex items-center justify-between"
+                    className="w-full text-left p-2.5 rounded-xl bg-[#0a1c2e] hover:bg-[#0c2238] border border-[#143252] hover:border-[#00c878]/40 text-[11px] text-slate-300 hover:text-white transition flex items-center justify-between gap-2"
                   >
                     <span className="truncate">{s}</span>
                     <ChevronRight className="w-3 h-3 text-slate-500 flex-shrink-0" />
@@ -188,11 +222,11 @@ export const AICopilotDock: React.FC = () => {
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleSend()}
               placeholder="Ask Copilot AI anything..."
-              className="flex-1 bg-slate-950 border border-slate-800 focus:border-nsitf-gold-400 text-xs text-white px-3.5 py-2.5 rounded-xl focus:outline-none placeholder:text-slate-500"
+              className="flex-1 bg-[#050e1a] border border-[#143252] focus:border-amber-400 text-xs text-white px-3.5 py-2.5 rounded-xl focus:outline-none placeholder:text-slate-500"
             />
             <button
               onClick={() => handleSend()}
-              className="p-2.5 rounded-xl bg-nsitf-gold-500 hover:bg-nsitf-gold-400 text-slate-950 font-bold transition shadow-glow-gold"
+              className="p-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold transition shadow-lg"
             >
               <Send className="w-4 h-4" />
             </button>

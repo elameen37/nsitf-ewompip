@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 /* ═══════════════════════════════════════════════════════════════════════════ */
-/*  NSITF EWOMPIP — Global Base Styles                                        */
+/*  NSITF EWOMPIP — Executive Command Center Theme System                     */
 /* ═══════════════════════════════════════════════════════════════════════════ */
 
 @layer base {
@@ -15,7 +15,8 @@
   }
 
   body {
-    @apply bg-slate-950 text-slate-100 antialiased font-sans;
+    @apply bg-[#050e1a] text-slate-100 antialiased;
+    font-family: 'Inter', 'Manrope', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     transition: background-color 0.3s ease, color 0.3s ease;
   }
 
@@ -26,31 +27,81 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════ */
-/*  DARK MODE — Glassmorphism Components                                       */
+/*  DARK MODE — Command Center Surfaces                                        */
 /* ═══════════════════════════════════════════════════════════════════════════ */
 
-.dark .glass-panel {
-  background: rgba(15, 23, 42, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(0, 168, 89, 0.18);
+/* Main module panel headers & large sections */
+.dark .glass-panel,
+.glass-panel {
+  background: #081829;
+  border: 1px solid #122c48;
+  box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.5);
 }
 
-.dark .glass-card {
-  background: rgba(18, 30, 45, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
+/* Content cards within modules */
+.dark .glass-card,
+.glass-card {
+  background: #091c2f;
+  border: 1px solid #132d4a;
+  box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.4);
 }
 
-.dark .glass-card:hover {
-  border-color: rgba(0, 168, 89, 0.4);
-  box-shadow: 0 8px 30px -4px rgba(0, 168, 89, 0.2);
+.dark .glass-card:hover,
+.glass-card:hover {
+  border-color: rgba(0, 200, 120, 0.35);
+  box-shadow: 0 6px 20px -4px rgba(0, 200, 120, 0.15);
 }
+
+/* Remap Tailwind slate values to command center palette */
+.dark .bg-slate-900,
+.bg-slate-900 {
+  background-color: #0a1d30 !important;
+}
+
+.dark .bg-slate-950,
+.bg-slate-950 {
+  background-color: #050e1a !important;
+}
+
+.dark .bg-slate-900\/90 { background-color: rgba(10, 29, 48, 0.9) !important; }
+.dark .bg-slate-900\/80 { background-color: rgba(10, 29, 48, 0.8) !important; }
+.dark .bg-slate-900\/60 { background-color: rgba(10, 29, 48, 0.6) !important; }
+.dark .bg-slate-950\/80 { background-color: rgba(5, 14, 26, 0.8) !important; }
+.dark .bg-slate-950\/60 { background-color: rgba(5, 14, 26, 0.6) !important; }
+
+.dark .border-slate-800,
+.border-slate-800 {
+  border-color: #122c48 !important;
+}
+
+.dark .border-slate-800\/80,
+.border-slate-800\/80 {
+  border-color: rgba(18, 44, 72, 0.8) !important;
+}
+
+.dark .bg-slate-800,
+.bg-slate-800 {
+  background-color: #0d263e !important;
+}
+
+.dark .border-slate-700,
+.border-slate-700 {
+  border-color: #1e3d5c !important;
+}
+
+.dark .hover\:bg-slate-900\/60:hover { background-color: rgba(10, 29, 48, 0.6) !important; }
+.dark .hover\:bg-slate-800:hover { background-color: #0d263e !important; }
+.dark .hover\:bg-slate-700:hover { background-color: #1e3d5c !important; }
 
 /* ═══════════════════════════════════════════════════════════════════════════ */
-/*  LIGHT MODE — Government Green & Neutral Palette                           */
+/*  TABLE & DIVIDER RESETS                                                    */
+/* ═══════════════════════════════════════════════════════════════════════════ */
+
+.divide-slate-800\/80 > * + * { border-color: rgba(18, 44, 72, 0.8) !important; }
+.hover\:bg-slate-900\/50:hover { background-color: rgba(10, 29, 48, 0.5) !important; }
+
+/* ═══════════════════════════════════════════════════════════════════════════ */
+/*  LIGHT MODE SURFACES                                                       */
 /* ═══════════════════════════════════════════════════════════════════════════ */
 
 html:not(.dark) .glass-panel {
@@ -58,7 +109,7 @@ html:not(.dark) .glass-panel {
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(0, 104, 55, 0.22);
-  box-shadow: 0 2px 18px 0 rgba(0, 104, 55, 0.08), 0 1px 3px rgba(0,0,0,0.06);
+  box-shadow: 0 2px 18px 0 rgba(0, 104, 55, 0.08);
 }
 
 html:not(.dark) .glass-card {
@@ -74,15 +125,11 @@ html:not(.dark) .glass-card:hover {
   box-shadow: 0 6px 22px rgba(0, 104, 55, 0.14);
 }
 
-/* ── Page Background ─────────────────────────────────────────────────────── */
-
 html:not(.dark) body,
 html:not(.dark) #root {
   background: linear-gradient(135deg, #e9f4ee 0%, #f0f7f2 40%, #eaf3f1 100%);
   min-height: 100vh;
 }
-
-/* ── Text Colors ─────────────────────────────────────────────────────────── */
 
 html:not(.dark) .text-white       { color: #0d2117 !important; }
 html:not(.dark) .text-slate-100   { color: #0d2117 !important; }
@@ -91,29 +138,14 @@ html:not(.dark) .text-slate-300   { color: #2d5040 !important; }
 html:not(.dark) .text-slate-400   { color: #4a7060 !important; }
 html:not(.dark) .text-slate-500   { color: #5d8870 !important; }
 
-/* ── Surface Colors ──────────────────────────────────────────────────────── */
-
 html:not(.dark) .bg-slate-950     { background-color: #eef4f0 !important; }
 html:not(.dark) .bg-slate-900     { background-color: #f2f8f4 !important; }
 html:not(.dark) .bg-slate-900\/90 { background-color: rgba(242,248,244,0.9) !important; }
-html:not(.dark) .bg-slate-900\/80 { background-color: rgba(242,248,244,0.8) !important; }
 html:not(.dark) .bg-slate-900\/60 { background-color: rgba(242,248,244,0.6) !important; }
 html:not(.dark) .bg-slate-950\/80 { background-color: rgba(238,244,240,0.8) !important; }
-html:not(.dark) .bg-slate-950\/60 { background-color: rgba(238,244,240,0.6) !important; }
-
-/* ── Border Colors ───────────────────────────────────────────────────────── */
-
-html:not(.dark) .border-slate-800    { border-color: #c6ddd0 !important; }
-html:not(.dark) .border-slate-800\/80 { border-color: rgba(198,221,208,0.8) !important; }
-
-/* ── Sidebar ─────────────────────────────────────────────────────────────── */
-
-html:not(.dark) aside.glass-panel {
-  background: rgba(255, 255, 255, 0.95) !important;
-  border-right-color: rgba(0, 104, 55, 0.2) !important;
-}
-
-/* ── Inputs & Selects ────────────────────────────────────────────────────── */
+html:not(.dark) .border-slate-800 { border-color: #c6ddd0 !important; }
+html:not(.dark) .bg-slate-800     { background-color: #e2ede7 !important; }
+html:not(.dark) .border-slate-700 { border-color: #b8d4c4 !important; }
 
 html:not(.dark) input,
 html:not(.dark) select,
@@ -123,71 +155,65 @@ html:not(.dark) textarea {
   color: #0d2117 !important;
 }
 
-html:not(.dark) input::placeholder,
-html:not(.dark) textarea::placeholder {
-  color: #7aaa90 !important;
+/* ═══════════════════════════════════════════════════════════════════════════ */
+/*  CUSTOM SCROLLBARS                                                          */
+/* ═══════════════════════════════════════════════════════════════════════════ */
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
 }
 
-/* ── NSITF Brand Colors (preserved in light mode) ────────────────────────── */
+::-webkit-scrollbar-track {
+  background: rgba(5, 14, 26, 0.6);
+}
 
-html:not(.dark) .text-nsitf-green-300  { color: #006837 !important; }
-html:not(.dark) .text-nsitf-green-400  { color: #007a42 !important; }
-html:not(.dark) .text-nsitf-gold-300   { color: #a07c00 !important; }
-html:not(.dark) .text-nsitf-gold-400   { color: #b58c00 !important; }
-html:not(.dark) .text-emerald-300      { color: #065f46 !important; }
-html:not(.dark) .text-emerald-400      { color: #047857 !important; }
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 200, 120, 0.25);
+  border-radius: 9999px;
+}
 
-/* ── Status Badges ───────────────────────────────────────────────────────── */
-
-html:not(.dark) .bg-emerald-500\/20    { background-color: rgba(6,95,70,0.1) !important; }
-html:not(.dark) .bg-emerald-500\/15    { background-color: rgba(6,95,70,0.08) !important; }
-html:not(.dark) .border-emerald-500\/30 { border-color: rgba(6,95,70,0.3) !important; }
-
-html:not(.dark) .bg-nsitf-green-900\/60 { background-color: rgba(0,104,55,0.12) !important; }
-html:not(.dark) .border-nsitf-green-500\/30 { border-color: rgba(0,104,55,0.35) !important; }
-
-html:not(.dark) .bg-nsitf-gold-500\/20  { background-color: rgba(181,140,0,0.1) !important; }
-html:not(.dark) .border-nsitf-gold-500\/30 { border-color: rgba(181,140,0,0.3) !important; }
-
-html:not(.dark) .bg-slate-800          { background-color: #e2ede7 !important; }
-html:not(.dark) .border-slate-700      { border-color: #b8d4c4 !important; }
-
-/* ── Tables ──────────────────────────────────────────────────────────────── */
-
-html:not(.dark) .divide-slate-800\/80 > * + * { border-color: rgba(198,221,208,0.7) !important; }
-html:not(.dark) tr.hover\:bg-slate-900\/50:hover { background-color: rgba(0,104,55,0.04) !important; }
-html:not(.dark) thead { background-color: rgba(0,104,55,0.07) !important; }
-
-/* ── Scrollbars ──────────────────────────────────────────────────────────── */
-
-::-webkit-scrollbar        { width: 5px; height: 5px; }
-::-webkit-scrollbar-track  { background: rgba(15, 23, 42, 0.4); }
-::-webkit-scrollbar-thumb  { background: rgba(0, 168, 89, 0.35); border-radius: 9999px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(0, 168, 89, 0.65); }
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 200, 120, 0.55);
+}
 
 html:not(.dark) ::-webkit-scrollbar-track { background: rgba(0,104,55,0.06); }
 html:not(.dark) ::-webkit-scrollbar-thumb { background: rgba(0,104,55,0.3); }
 html:not(.dark) ::-webkit-scrollbar-thumb:hover { background: rgba(0,104,55,0.55); }
 
-/* ══════════════════════════════════════════════════════════════════════════ */
-/*  Utility Badges                                                             */
-/* ══════════════════════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════════════════════ */
+/*  UTILITY BADGE CLASSES                                                      */
+/* ═══════════════════════════════════════════════════════════════════════════ */
 
 .gold-glass-badge {
-  background: rgba(212, 175, 55, 0.15);
-  border: 1px solid rgba(212, 175, 55, 0.3);
-  color: #d4af37;
+  background: rgba(243, 182, 47, 0.15);
+  border: 1px solid rgba(243, 182, 47, 0.3);
+  color: #f3b62f;
 }
 
 .green-glass-badge {
-  background: rgba(0, 168, 89, 0.15);
-  border: 1px solid rgba(0, 168, 89, 0.3);
-  color: #00875a;
+  background: rgba(0, 200, 120, 0.15);
+  border: 1px solid rgba(0, 200, 120, 0.3);
+  color: #00c878;
 }
 
-/* ══════════════════════════════════════════════════════════════════════════ */
-/*  Marquee Animation — Slow Continuous Right-to-Left Feed                    */
-/* ══════════════════════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════════════════════ */
+/*  EXECUTIVE GREEN BUTTON                                                     */
+/* ═══════════════════════════════════════════════════════════════════════════ */
+
+.glow-green-btn {
+  background: linear-gradient(135deg, #00c878 0%, #009e5d 100%);
+  box-shadow: 0 0 16px rgba(0, 200, 120, 0.3);
+}
+
+.glow-green-btn:hover {
+  background: linear-gradient(135deg, #00d882 0%, #00ad67 100%);
+  box-shadow: 0 0 22px rgba(0, 200, 120, 0.45);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════ */
+/*  MARQUEE ANIMATION                                                         */
+/* ═══════════════════════════════════════════════════════════════════════════ */
 
 @keyframes marquee-scroll {
   0%   { transform: translateX(0%); }
@@ -204,9 +230,9 @@ html:not(.dark) ::-webkit-scrollbar-thumb:hover { background: rgba(0,104,55,0.55
   animation-play-state: paused;
 }
 
-/* ══════════════════════════════════════════════════════════════════════════ */
-/*  Radar Pulse Effect                                                         */
-/* ══════════════════════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════════════════════ */
+/*  RADAR PULSE & GLOW EFFECTS                                                 */
+/* ═══════════════════════════════════════════════════════════════════════════ */
 
 .radar-pulse { position: relative; }
 
@@ -216,7 +242,7 @@ html:not(.dark) ::-webkit-scrollbar-thumb:hover { background: rgba(0,104,55,0.55
   top: 50%; left: 50%;
   width: 100%; height: 100%;
   border-radius: 50%;
-  background: rgba(0, 168, 89, 0.2);
+  background: rgba(0, 200, 120, 0.2);
   transform: translate(-50%, -50%) scale(1);
   animation: radar-expand 2.5s infinite linear;
 }
@@ -225,3 +251,16 @@ html:not(.dark) ::-webkit-scrollbar-thumb:hover { background: rgba(0,104,55,0.55
   0%   { transform: translate(-50%, -50%) scale(0.8); opacity: 0.8; }
   100% { transform: translate(-50%, -50%) scale(2.2); opacity: 0; }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════ */
+/*  NSITF ACCENT COLOR OVERRIDES FOR BRANDED ELEMENTS                         */
+/* ═══════════════════════════════════════════════════════════════════════════ */
+
+.text-nsitf-green-400 { color: #00c878 !important; }
+.text-nsitf-green-300 { color: #34e099 !important; }
+.border-nsitf-green-400 { border-color: #00c878 !important; }
+.border-nsitf-green-500\/20 { border-color: rgba(0, 200, 120, 0.2) !important; }
+.border-nsitf-green-500\/30 { border-color: rgba(0, 200, 120, 0.3) !important; }
+
+.shadow-glow-green { box-shadow: 0 0 18px rgba(0, 200, 120, 0.4) !important; }
+.shadow-glow-gold  { box-shadow: 0 0 18px rgba(243, 182, 47, 0.4) !important; }

@@ -17,7 +17,7 @@ const MainContent: React.FC = () => {
   const { activeTab } = useTelemetry();
 
   return (
-    <main className="flex-1 p-3 sm:p-6 lg:p-8 max-w-7xl mx-auto w-full space-y-6 overflow-x-hidden">
+    <main className="flex-1 p-3 sm:p-5 lg:p-6 max-w-[1600px] w-full mx-auto space-y-6 overflow-x-hidden">
       {activeTab === 'dashboard' && <ExecutiveDashboard />}
       {activeTab === 'attendance' && <AttendanceModule />}
       {activeTab === 'productivity' && <ProductivityModule />}
@@ -33,7 +33,7 @@ export const AppContent: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-nsitf-green-600 selection:text-white">
+    <div className="min-h-screen bg-[#050e1a] text-slate-100 flex flex-col font-sans selection:bg-[#00c878] selection:text-slate-950">
       <Header onToggleMobileMenu={() => setMobileMenuOpen(!mobileMenuOpen)} />
       <div className="flex flex-1 relative">
         <Sidebar mobileOpen={mobileMenuOpen} onCloseMobile={() => setMobileMenuOpen(false)} />
