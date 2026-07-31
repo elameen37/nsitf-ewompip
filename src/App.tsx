@@ -45,6 +45,7 @@ export const AppContent: React.FC = () => {
           mobileOpen={mobileMenuOpen}
           onCloseMobile={() => setMobileMenuOpen(false)}
           desktopCollapsed={desktopCollapsed}
+          onToggleDesktopSidebar={() => setDesktopCollapsed(!desktopCollapsed)}
         />
         <MainContent />
       </div>

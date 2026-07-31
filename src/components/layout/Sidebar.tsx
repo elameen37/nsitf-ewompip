@@ -13,6 +13,7 @@ import {
   Sparkles,
   ShieldCheck,
   ChevronRight,
+  ChevronLeft,
   X,
   Layers,
   Activity,
@@ -33,12 +34,14 @@ interface SidebarProps {
   mobileOpen?: boolean;
   onCloseMobile?: () => void;
   desktopCollapsed?: boolean;
+  onToggleDesktopSidebar?: () => void;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
   mobileOpen = false,
   onCloseMobile,
   desktopCollapsed = false,
+  onToggleDesktopSidebar,
 }) => {
   const { activeTab, setActiveTab, setIsCopilotOpen, branches, tasks, attendanceLogs } = useTelemetry();
 
@@ -59,6 +62,34 @@ export const Sidebar: React.FC<SidebarProps> = ({
             </div>
             <button onClick={onCloseMobile} className="p-1.5 rounded-lg bg-[#0a1c2e] text-slate-400 hover:text-white">
               <X className="w-4 h-4" />
+            </button>
+          </div>
+        )}
+
+        {/* Desktop Sidebar Toggle Header Strip */}
+        {onToggleDesktopSidebar && (
+          <div
+            className={`hidden lg:flex items-center ${
+              desktopCollapsed ? 'justify-center py-3' : 'justify-between px-4 pt-3 pb-1'
+            } border-b border-[#122c48]/60`}
+          >
+            {!desktopCollapsed && (
+              <span className="text-[10px] font-mono tracking-widest font-extrabold text-slate-400 uppercase flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#00c878]" />
+                NAVIGATION PANE
+              </span>
+            )}
+            <button
+              onClick={onToggleDesktopSidebar}
+              className="p-1.5 rounded-xl bg-[#0a1c2e] border border-[#143252] text-slate-300 hover:text-white hover:border-[#00c878]/50 hover:bg-[#0f2842] transition shadow-sm"
+              title={desktopCollapsed ? 'Expand Sidebar' : 'Collapse Sidebar'}
+              aria-label={desktopCollapsed ? 'Expand Sidebar' : 'Collapse Sidebar'}
+            >
+              {desktopCollapsed ? (
+                <ChevronRight className="w-4 h-4 text-[#00c878]" />
+              ) : (
+                <ChevronLeft className="w-4 h-4 text-slate-300" />
+              )}
             </button>
           </div>
         )}

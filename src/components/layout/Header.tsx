@@ -68,15 +68,6 @@ export const Header: React.FC<{
             <Menu className="w-5 h-5" />
           </button>
 
-          {/* Desktop sidebar slide toggle */}
-          <button
-            onClick={onToggleDesktopSidebar}
-            className="hidden lg:flex p-2 rounded-xl bg-[#0a1c2e] border border-[#143252] text-slate-300 hover:text-white hover:border-[#00c878]/40 transition"
-            title={desktopSidebarCollapsed ? 'Expand Sidebar' : 'Collapse Sidebar'}
-          >
-            <Menu className="w-5 h-5" />
-          </button>
-
           <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-white p-1 shadow-glow-green border border-emerald-500/30 flex-shrink-0">
             <img
               src="/nsitf-logo.png"
