@@ -211,7 +211,11 @@ export const Header: React.FC<{
               onChange={(e) => setSelectedState(e.target.value)}
               className="appearance-none bg-[#0a1d30] border border-[#143252] hover:border-[#00c878]/50 text-xs text-slate-200 pl-3 pr-7 py-1.5 rounded-lg focus:outline-none focus:border-[#00c878] font-medium cursor-pointer transition min-w-[170px]"
             >
-              <option value="ALL">All States (36 + FCT)</option>
+              <option value="ALL">
+                {selectedZone === 'ALL'
+                  ? 'All States (36 + FCT)'
+                  : `All ${selectedZone.replace(/_/g, '-')} States`}
+              </option>
               {stateOptions.map((st) => (
                 <option key={st} value={st}>
                   {st} State

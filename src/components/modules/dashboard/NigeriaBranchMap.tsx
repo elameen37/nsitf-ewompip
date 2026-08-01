@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useTelemetry } from '../../../context/TelemetryContext';
+import { useTelemetry, NIGERIA_ZONE_STATES } from '../../../context/TelemetryContext';
 import { Building2, Radio, ArrowUpRight, CheckCircle2, Compass } from 'lucide-react';
 import { Branch } from '../../../types';
 
@@ -67,7 +67,10 @@ export const NigeriaBranchMap: React.FC = () => {
               NATIONWIDE BRANCH NETWORK RADAR
             </h2>
             <p className="text-xs text-slate-400 mt-0.5">
-              Live telemetry across all 36 States &amp; FCT — <strong className="text-white">{displayed.length}</strong> nodes active
+              {selectedZone === 'ALL'
+                ? 'Live telemetry across all 36 States & FCT — '
+                : `Live telemetry across ${selectedZone.replace(/_/g, '-')} Zone — `}
+              <strong className="text-white">{displayed.length}</strong> nodes active
             </p>
           </div>
           <button
@@ -231,10 +234,14 @@ export const NigeriaBranchMap: React.FC = () => {
         {/* Stats strip */}
         <div className="grid grid-cols-4 gap-2 border-t border-[#122c48] pt-3 text-center font-mono">
           {[
-            { value: '6',      label: 'Zones Active',   color: 'text-white' },
-            { value: '36+FCT', label: 'State Coverage', color: 'text-white' },
-            { value: '1,480',  label: 'Active Audits',  color: 'text-[#16b8e8]' },
-            { value: '24/7',   label: 'Live Telemetry', color: 'text-[#00c878]' },
+            { value: '6', label: 'Zones Active', color: 'text-white' },
+            {
+              value: selectedZone === 'ALL' ? '36+FCT' : `${NIGERIA_ZONE_STATES[selectedZone].length} States`,
+              label: selectedZone === 'ALL' ? 'State Coverage' : `${selectedZone.replace(/_/g, '-')} States`,
+              color: 'text-white',
+            },
+            { value: '1,480', label: 'Active Audits', color: 'text-[#16b8e8]' },
+            { value: '24/7', label: 'Live Telemetry', color: 'text-[#00c878]' },
           ].map(({ value, label, color }) => (
             <div key={label} className="p-2 rounded-xl bg-[#091b2c] border border-[#122b44]">
               <div className={`text-sm sm:text-base font-extrabold ${color}`}>{value}</div>
