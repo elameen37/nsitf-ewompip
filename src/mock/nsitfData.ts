@@ -612,7 +612,7 @@ export const INITIAL_AI_ALERTS: PredictiveAIAlert[] = [
     title: 'Geofence Radius Shift Flagged at Maiduguri Office',
     impactedBranchOrUnit: 'Maiduguri Regional Office',
     description: '14 staff clock-in records originated from GPS coordinates 1.8km outside authorized branch geofence boundary between 08:00 and 08:30.',
-    recommendedAction: 'Request State Manager verification for field assignment or trigger biometric secondary authentication requirement.',
+    recommendedAction: 'Request State Manager verification for field assignment or trigger QR code secondary authentication requirement.',
     confidenceScore: 98,
     timestamp: '2026-07-29T09:10:00Z',
   }

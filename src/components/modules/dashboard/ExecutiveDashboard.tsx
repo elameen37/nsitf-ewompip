@@ -347,7 +347,7 @@ export const ExecutiveDashboard: React.FC = () => {
 
             <div className="pt-2 border-t border-[#122c48] space-y-2.5">
               <div className="text-xs text-amber-300 bg-[#382b00]/50 p-2.5 rounded-lg border border-amber-500/30 leading-snug">
-                💡 Request State Manager verification for field assignment or trigger biometric secondary authentication request.
+                💡 Request State Manager verification for field assignment or trigger QR code secondary authentication request.
               </div>
               <button
                 onClick={() => resolveAIAlert('alert-3')}
